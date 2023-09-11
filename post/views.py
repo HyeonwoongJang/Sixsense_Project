@@ -25,3 +25,14 @@ def read(request, post_id):
     if request.method == 'GET':
         post_detail = Post.objects.get(id=post_id)
         return render(request, 'post/detail.html', {'tem_post_detail': post_detail})
+    
+def delete(request, post_id):
+    if request.method == "POST":
+        post_delete=Post.objects.get(id=post_id)
+        if request.user == post_delete.username:
+            post_delete.delete()
+            return redirect('/')
+        else:
+            return HttpResponse("invalid request method", status=403)
+    else:
+        return HttpResponse("Invalid request method", status=405)

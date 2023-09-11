@@ -10,5 +10,13 @@
     <p>{{tem_post_detail.updated_at}}</p>
     <img src="/media/{{tem_post_detail.image}}"/>
     <p>{{tem_post_detail.content}}</p>
+
+    {% if request.user.is_authenticated %}
+    <form action="/post/delete/{{tem_post_detail.id}}/" method="POST">
+        <!-- read 함수로 가져온 context의 id값을 적용 -->
+        {% csrf_token %} 
+        <button>삭제하기</button>
+    </form>
+    {% endif %}
 </body>
 </html>
