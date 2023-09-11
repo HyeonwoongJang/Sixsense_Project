@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
+    'post',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'MyLord.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [], # [BASE_DIR/'MyLord'/'templates'],
+        'DIRS': [BASE_DIR/'MyLord'/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,9 +105,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -123,7 +124,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AbstractUser 모듈을 사용했을 때, 장고에서 제공하는 회원 기능을 사용하려면 settings.py에 내가 만든 모델을 따로 설정해줘야 migration 파일을 만들 때 오류가 안남. 
+# AbstractUser 모듈을 사용했을 때, 장고에서 제공하는 회원 기능을 사용하려면 settings.py에 내가 만든 모델을 따로 설정해줘야 migration 파일을 만들 때 오류가 안남.
 AUTH_USER_MODEL = 'user.User'
 
 # MEDIA_URL = "media/"

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>글생성</h1>
+    <form action="/post/create/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label>주인님 소식</label>
+            <br>
+            <input type="text" name="title" placeholder="제목을 입력해주세요.">
+        </div>
+        <div>
+            <label>주인님 자랑</label>
+            <br>
+            <textarea name="content" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
+        </div>
+        <div>
+            <label>주인님 사진</label>
+            <br>
+            <input type="file" name="iamge" placeholder="이미지를 첨부해주세요.">
+        </div>
+        <button type="submit">작성하기</button>
+    </form>
+</body>
+
+</html>
