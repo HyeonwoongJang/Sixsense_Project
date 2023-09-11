@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from user.models import User
 
 
@@ -38,5 +38,12 @@ def signin(request):
             return redirect('/')
         else:
             return render(request, 'user/signin.html')
+    else:
+        return HttpResponse("Invalid request method", status=405)
+
+def signout(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect("/")
     else:
         return HttpResponse("Invalid request method", status=405)
