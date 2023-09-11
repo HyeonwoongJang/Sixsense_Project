@@ -119,6 +119,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -127,5 +130,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # AbstractUser 모듈을 사용했을 때, 장고에서 제공하는 회원 기능을 사용하려면 settings.py에 내가 만든 모델을 따로 설정해줘야 migration 파일을 만들 때 오류가 안남.
 AUTH_USER_MODEL = 'user.User'
 
-# MEDIA_URL = "media/"
-# MEDIA_ROOT = BASE_DIR / "media"
+
