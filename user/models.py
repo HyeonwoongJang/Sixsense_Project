@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 """
-userid : 로그인 시 사용되는 사용자의 ID
+username : 로그인 시 사용되는 사용자의 ID
 password : 로그인 시 사용되는 사용자의 비밀번호
 email : 사용자의 Email
 img : 사용자의 프로필 사진
