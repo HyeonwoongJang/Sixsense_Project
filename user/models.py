@@ -12,9 +12,12 @@ created_at : 사용자의 계정이 생성된 시간
 updated_at : 사용자의 계정 정보가 수정된 시간
 """
 
+
 class User(AbstractUser):
-  nickname = models.CharField(max_length=20, null=False)
-  image = models.ImageField(blank=True, null=True)
-  created_at = models.DateTimeField(auto_now_add=True)
-  updated_at = models.DateTimeField(auto_now=True)
-  
+    image = models.ImageField(blank=True, null=True)
+    nickname = models.CharField(max_length=20, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+def __str__(self):
+    return self.username
