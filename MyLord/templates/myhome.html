@@ -8,28 +8,29 @@
 </head>
 
 <body>
-    {% if request.user.is_authenticated %}    
+    {% if request.user.is_authenticated %}
     <form action="/user/signout/" method="POST">
         {% csrf_token %}
         <button>로그아웃</button>
     </form>
     <a href="/"><button>메인페이지 가기</button></a>
+    <a href="/profile/{{user.id}}/"><button>마이프로필</button></a>
     {% endif %}
-<h1>메인 페이지</h1>
-<a href="/post/create/">
-    <button>작성하기</button>
-</a>
-<ol>
-    {% for mp in tem_my_posts %}
-    <a href="/post/{{ mp.id }}/">
-        <li>
-            <div>{{user.nickname}}</div>
-            <img src="/media/{{mp.image}}"/>
-            <div>{{ mp.title }}</div>
-        </li>
+    <h1>메인 페이지</h1>
+    <a href="/post/create/">
+        <button>작성하기</button>
     </a>
-    {% endfor %}
-</ol>
+    <ol>
+        {% for mp in tem_my_posts %}
+        <a href="/post/{{ mp.id }}/">
+            <li>
+                <div>{{user.nickname}}</div>
+                <img src="/media/{{mp.image}}" onerror="this.style.display='none'" />
+                <div>{{ mp.title }}</div>
+            </li>
+        </a>
+        {% endfor %}
+    </ol>
 </body>
 
 </html>

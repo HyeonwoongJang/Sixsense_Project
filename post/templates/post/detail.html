@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>post_detail</title>
 </head>
+
 <body>
     <h1>{{request.user.nickname}}님의 글입니다.</h1>
     <h2>{{tem_post_detail.title}}</h2>
     <p>작성일 : {{tem_post_detail.created_at}}</p>
     <p>수정일 : {{tem_post_detail.updated_at}}</p>
-    <img src="/media/{{tem_post_detail.image}}"/>
+    <img src="/media/{{tem_post_detail.image}}" onerror="this.style.display='none'" />
     <p>{{tem_post_detail.content}}</p>
 
     {% if request.user == tem_post_detail.username %}
     <form action="/post/delete/{{tem_post_detail.id}}/" method="POST">
         <!-- read 함수로 가져온 context의 id값을 적용 -->
-        {% csrf_token %} 
+        {% csrf_token %}
         <button>삭제하기</button>
     </form>
     <a href="/post/update/{{tem_post_detail.id}}/">
@@ -23,4 +25,5 @@
     </a>
     {% endif %}
 </body>
+
 </html>

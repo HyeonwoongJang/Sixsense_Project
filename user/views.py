@@ -15,6 +15,7 @@ def signup(request):
         email = request.POST['email']
         image = request.FILES.get("image")
         nickname = request.POST['nickname']
+        print(password)
         if password == password2:
             User.objects.create_user(
                 username=username, password=password, email=email, image=image, nickname=nickname)
@@ -40,6 +41,7 @@ def signin(request):
             return render(request, 'user/signin.html')
     else:
         return HttpResponse("Invalid request method", status=405)
+
 
 def signout(request):
     if request.method == "POST":
