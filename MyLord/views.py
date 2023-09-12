@@ -17,8 +17,7 @@ def main(request):
 
 def myhome(request, user_id):
     if request.method == "GET":
-        my_posts = Post.objects.filter(
-            username_id=user_id).order_by('-created_at')
+        my_posts = Post.objects.filter(username_id=user_id).order_by('-created_at')
         return render(request, 'myhome.html', {'tem_my_posts': my_posts})
     else:
         return HttpResponse("invalid request method", status=405)
