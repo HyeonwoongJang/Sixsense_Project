@@ -9,6 +9,14 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     username = models.ForeignKey('user.User', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.title
 
-def __str__(self):
-    return self.title
+class Comment(models.Model):
+    content = models.TextField(max_length=256, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    post = models.ForeignKey('post.Post', on_delete=models.CASCADE)
+
+
