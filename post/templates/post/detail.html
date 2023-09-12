@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h1>{{request.user.nickname}}님의 글입니다.</h1>
+    <h1>{{tem_post_detail.username.nickname}}님의 글입니다.</h1>
     <h2>{{tem_post_detail.title}}</h2>
     <p>작성일 : {{tem_post_detail.created_at}}</p>
     <p>수정일 : {{tem_post_detail.updated_at}}</p>
@@ -24,6 +24,32 @@
         <button>수정하기</button>
     </a>
     {% endif %}
+
+    
+    <div>
+        <ul>
+            {% for c in tem_comments %}
+            <li>
+                <div>
+                    {{c.content}}|
+                    {{c.user.nickname}}|
+                    {{c.created_at}}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+   
+    <div>
+        <form action="/post/comment/{{tem_post_detail.id}}/" method="POST">
+            {% csrf_token %}
+            <input type="text" name="content" placeholder="댓글을 입력해주세요">
+            <button type="submit">등록</button>
+        </form>
+    </div>
+
+
+
 </body>
 
 </html>

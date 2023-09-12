@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Post
+from .models import Post, Comment
 from django.contrib.auth.decorators import login_required
 
 
@@ -23,8 +23,9 @@ def create(request):
 
 def read(request, post_id):
     if request.method == 'GET':
-        post_detail = Post.objects.get(id=post_id)
-        return render(request, 'post/detail.html', {'tem_post_detail': post_detail})
+        post_detail = Post.objects.get(id=post_id) # 특정 포스트 들어갈 때
+        comments = Comment.objects.filter(post_id=post_id).order_by('-created_at') # 특정 포스트의 해당 코멘트들 (Comment 테이블의 post_id 필드에 받아온 인자  )
+        return render(request, 'post/detail.html', {'tem_post_detail': post_detail, 'tem_comments':comments})
     
 def delete(request, post_id):
     if request.method == "POST":
@@ -57,4 +58,15 @@ def update(request, post_id):
     else:
         return HttpResponse("Invalid request method", status=405)
 
-
+@login_required(login_url='/user/signin/')
+def comment(request, post_id):
+    if request.method == 'POST':
+        pp=Post.objects.get(id=post_id)
+        Comment.objects.create(
+            content=request.POST['content'],
+            post=pp,
+            user=request.user
+         )
+        return redirect(f"/post/{post_id}/")
+    else:
+        return HttpResponse("invalid request method", status=405)
