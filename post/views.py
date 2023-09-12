@@ -36,3 +36,25 @@ def delete(request, post_id):
             return HttpResponse("invalid request method", status=403)
     else:
         return HttpResponse("Invalid request method", status=405)
+    
+def update(request, post_id):
+    if request.method == "POST":
+        post_update=Post.objects.get(id=post_id)
+        if request.user == post_update.username: 
+            post_update.title=request.POST['title']
+            post_update.content=request.POST['content']
+            if request.FILES.get('image') is None:
+                post_update.image=post_update.image
+            else:
+                post_update.image=request.FILES.get("image")
+            post_update.save()
+            return redirect(f"/post/{post_update.id}/")
+        else:
+            return HttpResponse("invalid request method", status=403)
+    elif request.method == "GET":
+        post_update=Post.objects.get(id=post_id)
+        return render(request, 'post/update.html', {'tem_post_update': post_update})
+    else:
+        return HttpResponse("Invalid request method", status=405)
+
+
