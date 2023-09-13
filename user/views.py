@@ -15,7 +15,7 @@ def signup(request):
         email = request.POST['email']
         image = request.FILES.get("image")
         nickname = request.POST['nickname']
-        print(password)
+        print(image)
         if password == password2:
             User.objects.create_user(
                 username=username, password=password, email=email, image=image, nickname=nickname)

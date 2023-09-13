@@ -1,36 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'user/base.html' %}
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>main page</title>
-</head>
-
-<body>
     {% if request.user.is_authenticated %}
-    <form action="/user/signout/" method="POST">
-        {% csrf_token %}
-        <button>로그아웃</button>
-    </form>
-    <a href="/myhome/{{user.id}}/"><button>우리집가기</button></a>
-    <a href="/profile/{{user.id}}/"><button>마이프로필</button></a>
+
     {% endif %}
     <h1>메인 페이지</h1>
-    <a href="/post/create/">
+    <a href="/post/create/" style="margin-left: 85%;">
         <button>작성하기</button>
     </a>
-    <ol>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for p in tem_all_post %}
-        <a href="/post/{{ p.id }}/">
-            <li>
-                <div>{{ p.username.nickname }}</div>
-                <img src="/media/{{p.image}}" onerror="this.style.display='none'" />
-                <div>{{ p.title }}</div>
-            </li>
-        </a>
+            <div class="col">
+                <div class="mycards">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title" >{{ p.username.nickname }}</h5>
+                                <hr>
+                                <img src="/media/{{ p.image }}" onerror="this.src='/media/default_image.jpg'" width="180px" height="100px" style="object-fit:fill">
+                                <hr>
+                                <a href="/post/{{ p.id }}/">
+                                <p class="mycomment">{{ p.title }}</p>
+                                </a>
+                                <hr>
+                                <p>댓글 좋아요 수</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         {% endfor %}
-    </ol>
-</body>
+    </div>
+    
+    
+    
+    
+    
+    
 
-</html>
+{% endblock %}
