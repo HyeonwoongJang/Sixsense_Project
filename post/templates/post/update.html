@@ -1,31 +1,36 @@
 {% extends 'user/base.html' %}
 {% block content %}
 
-    {% if request.user.id == tem_post_detail.username.id %}
-    <h1>글을 수정해주세요</h1>
-    <form action="/post/update/{{tem_post_update.id}}/" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div>
-            <label>주인님 소식</label>
-            <br>
-            <input type="text" name="title" value="{{tem_post_update.title}}">
+{% if request.user.id == tem_post_update.username.id %}
+<h1>게시글 수정</h1>
+<form action="/post/update/{{tem_post_update.id}}/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div style="float: center;">
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <div class="card" style=" padding: 0px 20px 20px 20px; text-align: center;">
+                    <label>주인님 소식</label>
+                    <input type="text" name="title" value="{{tem_post_update.title}}">
+                </div>
+                <br>
+                <div class="card" style=" padding: 0px 20px 20px 20px; text-align: center;">
+                    <label>주인님 자랑</label>
+                    <textarea name="content" cols="30" rows="10">{{tem_post_update.content}}</textarea>
+                </div>
+                <br>
+                <div class="card"
+                    style=" padding: 0px 20px 20px 20px; text-align: center; display: flex; align-items: center; justify-content: center;">
+                    <label>주인님 사진</label>
+                    <img src="/media/{{tem_post_update.image}}" onerror="this.style.display='none'" width="180px"
+                        height="100px" style="object-fit:fill; margin-bottom: 20px; " />
+                    <input type="file" name="image">
+                </div>
+                <br>
+                <button type="submit" style="float: right; display:flex;">수정하기</button>
+            </div>
         </div>
-        <div>
-            <label>주인님 자랑</label>
-            <br>
-            <textarea name="content" cols="30" rows="10" value="">{{tem_post_update.content}}</textarea>
-        </div>
-        <div>
-            <label>주인님 사진</label>
-            <br>
-            <img src="/media/{{tem_post_update.image}}" onerror="this.style.display='none'" />
-            <input type="file" name="image">
-
-        </div>
-        <button type="submit">수정하기</button>
-    </form>
-    {% endif %}
+    </div>
+</form>
+{% endif %}
 
 {% endblock %}
-
-
