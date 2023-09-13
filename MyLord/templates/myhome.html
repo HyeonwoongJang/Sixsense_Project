@@ -1,20 +1,41 @@
 {% extends 'user/base.html' %}
 {% block content %}
 
-    <h1>개인 페이지</h1>
-    <a href="/post/create/" style="margin-left: 85%;">
-        <button>작성하기</button>
-    </a>
-    <ol>
-        {% for mp in tem_my_posts %}
-        <a href="/post/{{ mp.id }}/">
-            <li>
-                <div>{{user.nickname}}</div>
-                <img src="/media/{{mp.image}}" onerror="this.style.display='none'" width="100px"/>
-                <div>{{ mp.title }}</div>
-            </li>
-        </a>
-        {% endfor %}
-    </ol>
+{% if request.user.is_authenticated %}
+
+{% endif %}
+<h1>게인 페이지</h1>
+<a href="/post/create/" style="margin-left: 85%;">
+    <button>작성하기</button>
+</a>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for p in tem_my_posts %}
+    <div class="col">
+        <div class="mycards">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ p.username.nickname }}</h5>
+                    <hr>
+                    <img src="/media/{{ p.image }}" onerror="this.src='/media/default_image.jpg'" width="180px"
+                        height="100px" style="object-fit:fill">
+                    <hr>
+                    <a href="/post/{{ p.id }}/">
+                        <p class="mycomment">{{ p.title }}</p>
+                    </a>
+                    <hr>
+                    <p>댓글 좋아요 수</p>
+                </div>
+            </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+
 
 {% endblock %}

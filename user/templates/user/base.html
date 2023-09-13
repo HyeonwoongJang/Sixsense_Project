@@ -12,14 +12,15 @@
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>
 
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
-    </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
+  </style>
   <style>
     * {
       font-family: 'Dongle', sans-serif;
       font-size: 30px;
     }
+
     .title-center {
       text-align: center;
       margin-top: 50px;
@@ -44,64 +45,62 @@
       text-align: center;
       border-color: aqua;
     }
-
-
   </style>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="/" style="font-size: 40px;">우리집 주인님</a>
-        {% if not user.is_authenticated  %}
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/user/signin/"> 로그인 </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/user/signup/"> 회원가입 </a>
-                </li>
-            </ul>
-        {% else %}
-        <span class="text-center text-body-secondary">
-          {{request.user.nickname}} 집사님 반갑습니다
-        </span>
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/profile/{{user.id}}/" style="margin-right: 20px;">
-                  마이프로필
-                </a>
-              </li>
-              <li class="nav-item active">
-                <form class="nav-link" action="/user/signout/" method="POST">
-                  {% csrf_token %}
-                  로그아웃
-                </form>
-              </li>
-            </ul>
-          {% endif %}
+      <a class="navbar-brand" href="/" style="font-size: 40px;">😺우리집 주인님🐶</a>
+      {% if not user.is_authenticated %}
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/user/signin/"> 로그인 </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/user/signup/"> 회원가입 </a>
+        </li>
+      </ul>
+      {% else %}
+      <span class="text-center text-body-secondary">
+        {{request.user.nickname}} 집사님 반갑습니다
+      </span>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/profile/{{user.id}}/" style="margin-right: 20px;">
+            마이프로필
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/user/signout/">
+            로그아웃
+          </a>
+        </li>
+      </ul>
+      {% endif %}
     </div>
 
-</nav>
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color:yellow; height: 120px;">
-<!-- 사용자 프로필 -->
-{% if request.user.is_authenticated %}
-  <div style="float:left; display:flex; margin-left: 300px; " >
-    <img src="/media/{{ request.user.image }}" onerror="this.src='/media/default_image.jpg'" width="100px" height="100px" style="border-radius: 50%">
-  </div>
-  <a href="/myhome/{{user.id}}/" style="margin: 0px 20px 0px 20px;"><button>우리집가기</button></a>
-  <a href=""><button>동료집사님들</button></a>
+  </nav>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:yellow; height: 120px;">
+    <!-- 사용자 프로필 -->
+    {% if request.user.is_authenticated %}
+    <div style="float:left; display:flex; margin-left: 300px; ">
+      <img src="/media/{{ request.user.image }}" onerror="this.src='/media/default_image.jpg'" width="100px"
+        height="100px" style="border-radius: 50%">
+    </div>
+    <a href="/myhome/{{user.id}}/" style="margin: 0px 20px 0px 20px;"><button>🏠우리집가기</button></a>
+    <a href=""><button>🏘️동료집사님들</button></a>
     {% else %}
-    <span class="nav-link" style="margin: 50px 30px 50px 700px" >
+    <span class="nav-link" style="margin: 50px 30px 50px 700px">
       공지
     </span>
     {% endif %}
     <hr>
   </nav>
   <div style="margin: 50px 300px 50px 300px;">
-  {% block content %}
+    {% block content %}
 
-  {% endblock %}
+    {% endblock %}
   </div>
   <br>
   <br>
@@ -109,7 +108,7 @@
   <div class="container">
     <footer class="py-3 my-4">
       <hr>
-      <p class="text-center text-body-secondary">Sixsense Project, 😺나의 주인님🐶</p>
+      <p class="text-center text-body-secondary">Sixsense Project, 😺우리집 주인님🐶</p>
     </footer>
   </div>
   </div>

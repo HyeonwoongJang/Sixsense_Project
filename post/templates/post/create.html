@@ -1,24 +1,31 @@
 {% extends 'user/base.html' %}
 {% block content %}
 
-    <h1>글생성</h1>
-    <form action="/post/create/" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div>
-            <label>주인님 소식</label>
-            <br>
-            <input type="text" name="title" placeholder="제목을 입력해주세요.">
+<h1>게시글 생성</h1>
+<form action="/post/create/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div style="float: center;">
+        <div class="row">
+            <div class="col-md-12 mb-2">
+                <div class="card" style=" padding: 0px 20px 20px 20px; text-align: center;">
+                    <label>주인님 소식</label>
+                    <input type="text" name="title" placeholder="제목을 입력해주세요.">
+                </div>
+                <br>
+                <div class="card" style=" padding: 0px 20px 20px 20px; text-align: center;">
+                    <label>주인님 자랑</label>
+                    <textarea name="content" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
+                </div>
+                <br>
+                <div class="card"
+                    style=" padding: 0px 20px 20px 20px; text-align: center; display: flex; align-items: center; justify-content: center;">
+                    <label>주인님 사진</label>
+                    <input type="file" name="image" placeholder="이미지를 첨부해주세요.">
+                </div>
+                <br>
+                <button type="submit" style="float: right; display:flex;">작성하기</button>
+            </div>
         </div>
-        <div>
-            <label>주인님 자랑</label>
-            <br>
-            <textarea name="content" cols="30" rows="10" placeholder="내용을 입력해주세요."></textarea>
-        </div>
-        <div>
-            <label>주인님 사진</label>
-            <br>
-            <input type="file" name="image" placeholder="이미지를 첨부해주세요.">
-        </div>
-        <button type="submit">작성하기</button>
-    </form>
+    </div>
+</form>
 {% endblock %}

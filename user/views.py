@@ -44,7 +44,7 @@ def signin(request):
 
 
 def signout(request):
-    if request.method == "POST":
+    if request.method == "GET":
         logout(request)
         return redirect("/")
     else:
