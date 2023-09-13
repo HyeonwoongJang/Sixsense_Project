@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'user/base.html' %}
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마이프로필</title>
-</head>
-
-<body>
     <h1>마이프로필</h1>
-    {% if request.user.is_authenticated %}{% if request.user == tem_my_info.username %}
+    {% if request.user.is_authenticated %}{% if request.user.id == tem_my_info.id %}
     <p>아이디 : {{ tem_my_info.username }}</p>
     <p>비밀번호 :
         <a href="/password/{{tem_my_info.id}}/">
@@ -18,18 +11,17 @@
     </p>
     <form action="/profile/{{tem_my_info.id}}/" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <div>
+        <p>
             이메일 : <input type="text" name="email" value="{{tem_my_info.email}}">
-        </div>
-        <div>
+        </p>
+        <p>
             프로필 사진 : <input type="file" name="image">
-        </div>
-        <div>
+        </p>
+        <p>
             닉네임 : <input type="text" name="nickname" value="{{tem_my_info.nickname}}">
-        </div>
+        </p>
         <button type="submit">수정하기</button>
     </form>
     {% endif %}{% endif %}
-</body>
 
-</html>
+{% endblock %}
