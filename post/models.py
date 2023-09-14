@@ -8,6 +8,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     username = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    book_mark = models.ManyToManyField('user.User', related_name="book_mark", blank=True)
 
     def __str__(self):
         return self.title
@@ -20,3 +21,6 @@ class Comment(models.Model):
     post = models.ForeignKey('post.Post', on_delete=models.CASCADE)
 
 
+class Like(models.Model):
+    user = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    post = models.ForeignKey('post.Post', on_delete=models.CASCADE)

@@ -11,6 +11,12 @@
         <div style="float: center;">
             <div class="row">
                 <div class="col-md-12 mb-2">
+                    {% if request.user.id != tem_post_detail.username.id %}
+                    <form action="/post/like/{{tem_post_detail.id}}/" method="post">
+                        {% csrf_token %}
+                        <button type="submit">좋아요</button>
+                    </form>
+                    {% endif %}
                     <div class="card"
                         style="margin: 20px 0px 5px 00px; padding: 10px 20px 0px 20px; text-align: center;">
                         <h5>{{tem_post_detail.title}}</h5>

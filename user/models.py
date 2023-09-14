@@ -18,6 +18,8 @@ class User(AbstractUser):
     nickname = models.CharField(max_length=20, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    follow = models.ManyToManyField('self', related_name="following", symmetrical=False)
 
+    
 def __str__(self):
     return self.username
