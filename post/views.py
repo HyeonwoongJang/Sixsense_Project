@@ -26,7 +26,10 @@ def read(request, post_id):
         post_detail = Post.objects.get(id=post_id)  # 특정 포스트 들어갈 때
         comments = Comment.objects.filter(post_id=post_id).order_by(
             '-created_at')  # 특정 포스트의 해당 코멘트들 (Comment 테이블의 post_id 필드에 받아온 인자  )
-        return render(request, 'post/detail.html', {'tem_post_detail': post_detail, 'tem_comments': comments})
+        like_user = Like.objects.filter(post=post_id, user=request.user.id)
+        
+        
+        return render(request, 'post/detail.html', {'tem_post_detail': post_detail, 'tem_comments': comments, 'tem_likes' : like_user})
 
 
 def delete(request, post_id):
@@ -71,6 +74,7 @@ def comment(request, post_id):
             post=pp,
             user=request.user
         )
+            
         return redirect(f"/post/{post_id}/")
     else:
         return HttpResponse("invalid request method", status=405)
@@ -117,21 +121,22 @@ def like(request, post_id):
 #   create > add ????
 #   delete : 해당 데이터의 id........... remove : 삭제할 타겟 필드 설정 가능
 
+@login_required
 def bookmark(request, post_id):
     if request.method == "POST":
         book_post = Post.objects.get(id=post_id)
 
         # book_mark(필드) - User(모델) : ManyToMany 관계
 
-        # 특정 User가 북마크한 모든 포스트
-        user2 = User.objects.get(id=request.user.id)
-        posts_that_user2_bookmarked = user2.rn_book_mark.all()
-        print(posts_that_user2_bookmarked)
+        # # 특정 User가 북마크한 모든 포스트
+        # user2 = User.objects.get(id=request.user.id)
+        # posts_that_user2_bookmarked = user2.rn_book_mark.all()
+        # 
 
-        # 특정 Post를 북마크한 모든 사용자
-        post2 = Post.objects.get(id=2)
-        users_who_bookmarked_post2 = post2.rn_book_mark.all()
-        print(users_who_bookmarked_post2)
+        # # 특정 Post를 북마크한 모든 사용자
+        # post2 = Post.objects.get(id=2)
+        # users_who_bookmarked_post2 = post2.rn_book_mark.all()
+        # 
 
         # Post 모델의 book_mark 필드는 User 모델을 참조, 조건식에서 book_mark는 User 인스턴스의 id를 역으로 참조
         if book_post.book_mark.filter(id=request.user.id):
@@ -144,15 +149,4 @@ def bookmark(request, post_id):
 # post1_likes = post1.rn_like_user.all()
 # post1_user1_like = post1.rn_like_user.get(id=request.user.id)
 
-# follow = models.ManyToManyField('self', related_name="following", symmetrical=False)
 
-# 팔로우를 누르면, 해당 유저의 user_id를 가져옴.
-# def follow(request, user_id):
-#     if request.method: "POST":
-#         user = User.objects.get(id=user_id)
-
-#         # User 모델의 follow 필드는 User 모델을 참조, 사용자가 해당 사용자를 팔로우하고 있는지 여부를 해당 사용자의 모델 데이터에서 참조......
-#         if user.following.filter(user_id=request.user.id):
-#             user.following.remove(request.user)
-#         else:
-#             user.following.add(request.user)

@@ -1,27 +1,50 @@
 {% extends 'user/base.html' %}
 {% block content %}
 
-    <h1>마이프로필</h1>
     {% if request.user.is_authenticated %}{% if request.user.id == tem_my_info.id %}
-    <p>아이디 : {{ tem_my_info.username }}</p>
-    <p>비밀번호 :
-        <a href="/password/{{tem_my_info.id}}/">
-            <button>비밀번호</button>
-        </a>
-    </p>
-    <form action="/profile/{{tem_my_info.id}}/" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <p>
-            이메일 : <input type="text" name="email" value="{{tem_my_info.email}}">
-        </p>
-        <p>
-            프로필 사진 : <input type="file" name="image">
-        </p>
-        <p>
-            닉네임 : <input type="text" name="nickname" value="{{tem_my_info.nickname}}">
-        </p>
-        <button type="submit">수정하기</button>
-    </form>
+    <div class="container" style="align-items: center;">
+        <div class="wrap" >
+            <div class="col" style="padding-top: -5x;">
+                <div class="card h-100"> 
+                    <div class="card-body" style="padding:auto 0px auto 0px;">
+                        <div class="form-group mt-2 mb-2" >
+                            <h2 class="title-center">마이프로필</h2>
+                            <hr>
+                        </div>
+                        <div class="form-area">
+                            {% csrf_token %}
+                            <div class="form-group mt-2 mb-2">
+                                <p>아이디 : {{ tem_my_info.username }}</p>
+                            </div>
+                            <div class="form-group mt-2 mb-2">
+                                <p>비밀번호 :
+                                    <a href="/password/{{tem_my_info.id}}/">
+                                        <button>비밀번호</button>
+                                    </a>
+                                </p>
+                            </div>
+                            <form action="/profile/{{tem_my_info.id}}/" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group mt-2 mb-2">
+                                    <p>이메일 : <input type="text" name="email" value="{{tem_my_info.email}}"></p>
+                                </div>
+                                <div class="form-group mt-2 mb-2">
+                                    <p>프로필 사진 : <input type="file" name="image"></p>
+                                </div>
+                                <div class="form-group mt-2 mb-2">
+                                    <p>닉네임 : <input type="text" name="nickname" value="{{tem_my_info.nickname}}"></p>
+                                </div>
+                                <hr>
+                                <div style="text-align: center;">
+                                    <button type="submit" class="btn btn-primary">수정하기</button>
+                                </div>
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endif %}{% endif %}
 
 {% endblock %}

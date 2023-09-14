@@ -1,9 +1,9 @@
-from django.contrib.auth.hashers import check_password, make_password
-from django.contrib import messages
+from django.contrib.auth.hashers import check_password
 from django.shortcuts import redirect, render
-from post.models import Post
+from post.models import Post, Comment
 from django.http import HttpResponse
 from user.models import User
+from django.contrib.auth import login
 
 
 def main(request):
@@ -17,8 +17,9 @@ def main(request):
 
 def myhome(request, user_id):
     if request.method == "GET":
+        page_user = User.objects.get(id=user_id)
         my_posts = Post.objects.filter(username_id=user_id).order_by('-created_at')
-        return render(request, 'myhome.html', {'tem_my_posts': my_posts})
+        return render(request, 'myhome.html', {'tem_my_posts': my_posts, 'tem_page_user': page_user})
     else:
         return HttpResponse("invalid request method", status=405)
 
@@ -48,6 +49,7 @@ def password(request, user_id):
             if request.POST['new_password'] == request.POST['new_password_check']:
                 my_p.set_password(request.POST['new_password'])
                 my_p.save()
+                login(request, my_p)
                 return redirect(f'/profile/{my_p.id}/')
             else:
                 return HttpResponse("invalid request 222", status=405)
@@ -55,3 +57,19 @@ def password(request, user_id):
             return HttpResponse("invalid request 111", status=405)
     else:
         return HttpResponse("invalid request method", status=405)
+
+def neighbor(request, user_id):
+    if request.method == "GET":
+        me = User.objects.get(id=user_id)
+        followings = me.follow.all()
+        followers = me.follower.all()
+        return render(request, 'neighbors_list.html', {'tem_followings':followings, 'tem_followers':followers, 'tem_me':me})
+        # if me.follow.from_user_id :
+        #     neighbors = User.objects.filter(user_follow_from_user_id=request.user.id)
+        #     return render(request, 'neighbors_list.html', {'tem_neighbors':neighbors, 'tem_me':me})
+        # else:
+        #     return HttpResponse("invalid request method", status=405)
+    else:
+        return HttpResponse("invalid request method", status=405)
+
+# def marks(request, user_id):
