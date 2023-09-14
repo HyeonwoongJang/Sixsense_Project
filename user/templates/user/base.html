@@ -21,9 +21,13 @@
       font-size: 30px;
     }
 
+    a:hover{
+      color: gray;
+    }
+
     .title-center {
       text-align: center;
-      margin-top: 50px;
+      margin-top: 5px;
     }
 
     .wrap {
@@ -45,6 +49,12 @@
       text-align: center;
       border-color: aqua;
     }
+
+    .delbtn {
+      border : none;
+      background-color : rgba(0,0,0,0);
+    }
+
   </style>
 </head>
 
@@ -89,10 +99,10 @@
         height="100px" style="border-radius: 50%">
     </div>
     <a href="/myhome/{{user.id}}/" style="margin: 0px 20px 0px 20px;"><button>🏠우리집가기</button></a>
-    <a href=""><button>🏘️동료집사님들</button></a>
+    <a href="/neighbors/{{ user.id }}"><button>🏘️동료집사님들</button></a>
     {% else %}
-    <span class="nav-link" style="margin: 50px 30px 50px 700px">
-      공지
+    <span style="margin: 0px auto 0px auto;">
+      밖에서 주접 떨기에는 받아주는 사람이 없어서 힘드셨나요? 여기서는 자유롭게 주접을 떨 수 있습니다. 이곳은 애완동물 한정 주접러들을 환영합니다.
     </span>
     {% endif %}
     <hr>

@@ -19,10 +19,10 @@ class Comment(models.Model):
     content = models.TextField(max_length=256, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey('user.User', on_delete=models.CASCADE)
-    post = models.ForeignKey('post.Post', on_delete=models.CASCADE)
+    user = models.ForeignKey('user.User', related_name='rn_user', on_delete=models.CASCADE)
+    post = models.ForeignKey('post.Post', related_name='rn_post', on_delete=models.CASCADE)
 
 
 class Like(models.Model):
-    user = models.ForeignKey('user.User', on_delete=models.CASCADE)
-    post = models.ForeignKey('post.Post', on_delete=models.CASCADE)
+    user = models.ForeignKey('user.User', related_name='rn_user', on_delete=models.CASCADE)
+    post = models.ForeignKey('post.Post', related_name='rn_post', on_delete=models.CASCADE)

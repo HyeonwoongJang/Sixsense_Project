@@ -11,24 +11,51 @@
         <div style="float: center;">
             <div class="row">
                 <div class="col-md-12 mb-2">
+                    <div style="float: right; display:flex; gap:5px;">
                     {% if request.user.id != tem_post_detail.username.id %}
-                    <form action="/post/like/{{tem_post_detail.id}}/" method="post">
-                        {% csrf_token %}
-                        <button type="submit">좋아요</button>
-                    </form>
+                    
+                    {% if tem_bookmark %}
                     <form action="/post/bookmark/{{tem_post_detail.id}}/" method="post">
                         {% csrf_token %}
-                        <button type="submit">북마크</button>
+                        <button class="btn btn-link text-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                                <path d="M176 72v152a8 8 0 0 1-12.65 6.51l-51.357-36.679L60.65 230.51A8 8 0 0 1 48 224V72a16.018 16.018 0 0 1 16-16h96a16.018 16.018 0 0 1 16 16Zm16-48H88a8 8 0 0 0 0 16h104v152a8 8 0 0 0 16 0V40a16.018 16.018 0 0 0-16-16Z"/>
+                            </svg>
+                        </button>
+                    </form>
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="682.667" height="682.667" version="1.0" viewBox="0 0 512 512">
+                        <path d="M171.5 53c-4.4 1.8-7 5.9-7 11.1 0 4.2.5 5.3 3.3 8.1l3.2 3.3 107.4.3c87.8.2 107.6.5 108.5 1.6.8.9 1.2 45.2 1.3 156.4l.3 155.2 3.3 3.2c2.8 2.8 3.9 3.3 8.2 3.3 4.3 0 5.4-.5 8.2-3.3l3.3-3.2.3-156.3c.3-178.1 1-163-8.4-172.4-8.8-8.9-.6-8.3-122.8-8.2-58.9 0-108 .4-109.1.9z"/>
+                        <path d="M118.6 117.6c-3.4 1.1-6.4 3.1-10.2 6.8-9.2 9.2-8.5-5.5-8.2 172.4l.3 156.2 3.3 3.2c2.7 2.8 4 3.3 8 3.3 4.7 0 5.8-.7 58.5-38.4l53.7-38.3 53.7 38.3c52.7 37.7 53.8 38.4 58.5 38.4 4 0 5.3-.5 8-3.3l3.3-3.2.3-156.3c.3-178.1 1-163-8.4-172.4-8.8-8.8-1.4-8.3-115.8-8.2-86 0-100.8.3-105 1.5zm204.2 23.6c.9.9 1.2 33.8 1.2 142.1 0 77.5-.4 140.7-.8 140.5-.5-.2-22-15.4-47.7-33.8-45.2-32.3-47.1-33.5-51.5-33.5-4.4 0-6.3 1.2-51.5 33.5-25.7 18.4-47.2 33.6-47.7 33.8-.4.2-.8-63-.8-140.5 0-108.3.3-141.2 1.2-142.1 1.7-1.7 195.9-1.7 197.6 0z"/>
+                    </svg>
+                    {% endif %}      
+                    <form action="/post/like/{{tem_post_detail.id}}/" method='POST'>
+                        {% csrf_token %}
+                        {% if tem_likes %}
+                        <button class="btn btn-link text-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+                                <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+                            </svg>
+                        </button>
+                        {% else %}
+                        <button class="btn btn-link text-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                <path d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/>
+                            </svg>
+                        </button>
+                        {% endif %}
                     </form>
                     {% endif %}
+                </div>
+                    <br><br>
                     <div class="card"
-                        style="margin: 20px 0px 5px 00px; padding: 10px 20px 0px 20px; text-align: center;">
-                        <h5>{{tem_post_detail.title}}</h5>
-                    </div>
-                    <div style="display: flex; justify-content: space-between;">
-                        <div style="text-align: left">
-                            <span>{{ tem_post_detail.username.nickname }} | {{ tem_post_detail.created_at|timesince }} 전
-                                |</span>
+                    style="margin: 20px 0px 5px 00px; padding: 10px 20px 0px 20px; text-align: center;">
+                    <h5>{{tem_post_detail.title}}</h5>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <div style="text-align: left">
+                        <span>{{ tem_post_detail.username.nickname }} | {{ tem_post_detail.created_at|timesince }} 전
+                            |</span>
                         </div>
                         {% if request.user.id == tem_post_detail.username.id %}
                         <div style="float: right; display:flex; gap:5px;">
@@ -39,8 +66,8 @@
                                 {% csrf_token %}
                                 <button type="submit" class="badge bg-danger">삭제</button>
                             </form>
-                        </div>
                         {% endif %}
+                        </div>
                     </div>
                     <div class="card" style="margin-top: 5px;">
                         <div class="card-body">
@@ -58,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <!-- 댓글 작성 하는 곳 -->
+             <!-- 댓글 작성 하는 곳 -->
             <form class="input-group mb-3" action="/post/comment/{{tem_post_detail.id}}/" method="post">
                 {% csrf_token %}
                 <input type="text" class="form-control" name='content' placeholder="댓글을 작성 해 주세요" />

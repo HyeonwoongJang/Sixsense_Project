@@ -1,0 +1,51 @@
+{% extends 'user/base.html' %}
+{% block content %}
+
+<h1>{{ tem_me.nickname }}님의 동료 집사님들 💘</h1>
+<hr>
+<h3>😘 내가 사모하는 주인님을 모시는 집사님들</h3>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for n in tem_followings %}
+    <div class="col">
+        <div class="mycards">
+            <div class="card h-100">
+                <div class="card-body">
+                  <a href="/myhome/{{ n.id }}/" style="text-decoration-line: none; color:black;">
+                    <h5 class="card-title">{{ n.nickname }}🏠</h5>
+                  </a>
+                    <hr>
+                    <img src="/media/{{ n.image }}" onerror="this.src='/media/default_image.jpg'" width="180px"
+                        height="120px" style="object-fit:fill">
+                    <hr>
+                    <p>팔로우 수 게시글 수</p>
+                </div>
+            </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<hr>
+<h3>🥰 나의 주인님을 사모하는 집사님들</h3>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for m in tem_followers %}
+    <div class="col">
+        <div class="mycards">
+            <div class="card h-100">
+                <div class="card-body">
+                  <a href="/myhome/{{ m.id }}/" style="text-decoration-line: none; color:black;">
+                    <h5 class="card-title">{{ m.nickname }}🏠</h5>
+                  </a>
+                    <hr>
+                    <img src="/media/{{ m.image }}" onerror="this.src='/media/default_image.jpg'" width="180px"
+                        height="120px" style="object-fit:fill">
+                    <hr>
+                    <p>팔로우 수 게시글 수</p>
+                </div>
+            </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,13 +1,43 @@
 {% extends 'user/base.html' %}
 {% block content %}
 
-{% if request.user.is_authenticated %}
+<h1>{{ tem_page_user.nickname }} 집사님의 개인 페이지</h1>
 
+<div class="container" style="align-items: center;">
+    <div class="wrap">
+        <div class="col">
+            <div class="card h-100" style="padding-top: -50px;"> 
+                <div class="card-body" style="padding:auto 0px auto 0px;">
+                    <div class="form-group mt-2 mb-2" >
+                        <h2 class="title-center">{{ tem_page_user.nickname }}님 용안</h2>
+                        <hr>
+                    </div>
+                    <div class="form-area" style="text-align: center;">
+                        {% csrf_token %}
+                        <img src="/media/{{ tem_page_user.image }}" onerror="this.src='/media/default_image.jpg'" width="250px" height="170px" style="object-fit:fill">
+                        <hr>
+                        {% if request.user.id != tem_page_user.id %}
+                        <form action="/user/follow/{{tem_page_user.id}}/"method="POST">
+                            {% csrf_token %}
+                            <div style="text-align: center;">
+                                <button type="submit" class="btn btn-primary">팔로우</button>
+                            </div>
+                        </form> 
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+<h2>{{ tem_page_user.nickname }} 집사님의 게시물</h2>
+{% if request.user.id == tem_page_user.id %}
+    <a href="/post/create/" style="margin-left: 85%;">
+        <button>작성하기</button>
+    </a>
 {% endif %}
-<h1>게인 페이지</h1>
-<a href="/post/create/" style="margin-left: 85%;">
-    <button>작성하기</button>
-</a>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for p in tem_my_posts %}
     <div class="col">
@@ -19,7 +49,7 @@
                     <img src="/media/{{ p.image }}" onerror="this.src='/media/default_image.jpg'" width="180px"
                         height="100px" style="object-fit:fill">
                     <hr>
-                    <a href="/post/{{ p.id }}/">
+                    <a href="/post/{{ p.id }}/" style="text-decoration-line: none; color:goldenrod;">
                         <p class="mycomment">{{ p.title }}</p>
                     </a>
                     <hr>
@@ -31,11 +61,5 @@
     </div>
     {% endfor %}
 </div>
-
-
-
-
-
-
 
 {% endblock %}

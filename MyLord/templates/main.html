@@ -14,15 +14,15 @@
                 <div class="mycards">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h5 class="card-title" >{{ p.username.nickname }}</h5>
+                                <a href="/myhome/{{ p.username.id }}" style="text-decoration-line: none; color:black;"><h5 class="card-title">{{ p.username.nickname }}🏠</h5></a>
                                 <hr>
                                 <img src="/media/{{ p.image }}" onerror="this.src='/media/default_image.jpg'" width="180px" height="100px" style="object-fit:fill">
                                 <hr>
-                                <a href="/post/{{ p.id }}/">
+                                <a href="/post/{{ p.id }}/" style="text-decoration-line: none; color:goldenrod;">
                                 <p class="mycomment">{{ p.title }}</p>
                                 </a>
                                 <hr>
-                                <p>댓글 좋아요 수</p>
+                                <p>댓글 수 : {{ p.post }}개</p>
                             </div>
                         </div>
                     </a>
