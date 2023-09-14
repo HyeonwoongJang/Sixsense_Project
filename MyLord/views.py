@@ -9,10 +9,6 @@ from django.contrib.auth import login
 def main(request):
     if request.method == 'GET':
         all_post = Post.objects.all().order_by('-created_at')
-
-        # count_comment = .rn_post.all().count()
-        # count_bookmark = Post.rn_user.all().count()
-        # all_like =
         context = {"tem_all_post": all_post}
         return render(request, 'main.html', context)
     else:
@@ -75,3 +71,5 @@ def neighbor(request, user_id):
         #     return HttpResponse("invalid request method", status=405)
     else:
         return HttpResponse("invalid request method", status=405)
+
+# def marks(request, user_id):

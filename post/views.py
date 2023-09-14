@@ -27,8 +27,9 @@ def read(request, post_id):
         comments = Comment.objects.filter(post_id=post_id).order_by(
             '-created_at')  # 특정 포스트의 해당 코멘트들 (Comment 테이블의 post_id 필드에 받아온 인자  )
         like_user = Like.objects.filter(post=post_id, user=request.user.id)
-        book_mark = Post.objects.filter(id=request.user.id)
-        return render(request, 'post/detail.html', {'tem_post_detail': post_detail, 'tem_comments': comments, 'tem_likes' : like_user, 'tem_bookmark' : book_mark})
+        
+        
+        return render(request, 'post/detail.html', {'tem_post_detail': post_detail, 'tem_comments': comments, 'tem_likes' : like_user})
 
 
 def delete(request, post_id):
@@ -130,12 +131,12 @@ def bookmark(request, post_id):
         # # 특정 User가 북마크한 모든 포스트
         # user2 = User.objects.get(id=request.user.id)
         # posts_that_user2_bookmarked = user2.rn_book_mark.all()
-        # print(posts_that_user2_bookmarked)
+        # 
 
         # # 특정 Post를 북마크한 모든 사용자
         # post2 = Post.objects.get(id=2)
         # users_who_bookmarked_post2 = post2.rn_book_mark.all()
-        # print(users_who_bookmarked_post2)
+        # 
 
         # Post 모델의 book_mark 필드는 User 모델을 참조, 조건식에서 book_mark는 User 인스턴스의 id를 역으로 참조
         if book_post.book_mark.filter(id=request.user.id):
