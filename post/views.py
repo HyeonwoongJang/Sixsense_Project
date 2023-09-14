@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Post, Comment
+from .models import Post, Comment, Like
 from django.contrib.auth.decorators import login_required
 
 
@@ -86,3 +86,31 @@ def comment_delete(request, comment_id):
             return HttpResponse("invalid request method", status=405)
     else:
         return HttpResponse("invalid request method", status=405)
+
+# dropdown박스로 
+@login_required
+def like(request, post_id):
+    if request.method == "POST":
+        liked_post = Post.objects.get(id=post_id)
+        like_user = Like.objects.filter(post=post_id, user=request.user.id)
+        if like_user:
+            like_user.delete()
+        else :
+            Like.objects.create(post=liked_post, user=request.user)
+        return redirect(f'/post/{post_id}/')
+    else:
+        return HttpResponse("invalid request method", status=405)
+        
+
+# Like 테이블을 따로 선언하지 않고 ManyToManyField를 사용했을 경우,
+# @login_required
+# def like(request, post_id):
+#     like_post = Post.objects.get(id=post_id)
+#     if like_post.like_user.filter(id=request.user.id):
+#         like_post.like_user.remove(request.user)
+#     else:
+#         like_post.like_user.add(request.user)
+#     return redirect(f"/post/{post_id}/")
+#
+#   create > add ????
+#   delete : 해당 데이터의 id........... remove : 삭제할 타겟 필드 설정 가능 
