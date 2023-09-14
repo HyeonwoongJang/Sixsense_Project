@@ -16,6 +16,10 @@
                         {% csrf_token %}
                         <button type="submit">좋아요</button>
                     </form>
+                    <form action="/post/bookmark/{{tem_post_detail.id}}/" method="post">
+                        {% csrf_token %}
+                        <button type="submit">북마크</button>
+                    </form>
                     {% endif %}
                     <div class="card"
                         style="margin: 20px 0px 5px 00px; padding: 10px 20px 0px 20px; text-align: center;">
