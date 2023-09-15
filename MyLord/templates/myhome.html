@@ -6,23 +6,37 @@
 <div class="container" style="align-items: center;">
     <div class="wrap">
         <div class="col">
-            <div class="card h-100" style="padding-top: -50px;"> 
+            <div class="card h-100" style="padding-top: -50px;">
                 <div class="card-body" style="padding:auto 0px auto 0px;">
-                    <div class="form-group mt-2 mb-2" >
+                    <div class="form-group mt-2 mb-2">
                         <h2 class="title-center">{{ tem_page_user.nickname }}님 용안</h2>
                         <hr>
                     </div>
                     <div class="form-area" style="text-align: center;">
                         {% csrf_token %}
-                        <img src="/media/{{ tem_page_user.image }}" onerror="this.src='/media/default_image.jpg'" width="250px" height="170px" style="object-fit:fill">
+                        <img src="/media/{{ tem_page_user.image }}" onerror="this.src='/media/default_image.jpg'"
+                            width="250px" height="170px" style="object-fit:fill">
                         <hr>
+
+
                         {% if request.user.id != tem_page_user.id %}
-                        <form action="/user/follow/{{tem_page_user.id}}/"method="POST">
+                        {% if tem_follow %}
+                        <form action="/user/follow/{{tem_page_user.id}}/" method="POST">
                             {% csrf_token %}
-                            <div style="text-align: center;">
-                                <button type="submit" class="btn btn-primary">팔로우</button>
-                            </div>
-                        </form> 
+                            <button class="btn btn-link text-danger">
+                                <img src="/media/following.png" onerror="this.src='/media/default_image.jpg'"
+                                    width="100px" height="100px">
+                            </button>
+                        </form>
+                        {% else %}
+                        <form action="/user/follow/{{tem_page_user.id}}/" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-link text-danger">
+                                <img src="/media/follow.png" onerror="this.src='/media/default_image.jpg'" width="100px"
+                                    height="100px">
+                            </button>
+                        </form>
+                        {% endif %}
                         {% endif %}
                     </div>
                 </div>
@@ -34,9 +48,9 @@
 <hr>
 <h2>{{ tem_page_user.nickname }} 집사님의 게시물</h2>
 {% if request.user.id == tem_page_user.id %}
-    <a href="/post/create/" style="margin-left: 85%;">
-        <button>작성하기</button>
-    </a>
+<a href="/post/create/" style="margin-left: 85%;">
+    <button>작성하기</button>
+</a>
 {% endif %}
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for p in tem_my_posts %}
@@ -56,10 +70,56 @@
                     <p>댓글 좋아요 수</p>
                 </div>
             </div>
-            </a>
         </div>
     </div>
     {% endfor %}
 </div>
-
+<hr>
+<h2>{{ tem_page_user.nickname }} 집사님의 북마크 게시물</h2>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for b in tem_my_bookmarks %}
+    <div class="col">
+        <div class="mycards">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ b.username.nickname }}</h5>
+                    <hr>
+                    <img src="/media/{{ b.image }}" onerror="this.src='/media/default_image.jpg'" width="180px"
+                        height="100px" style="object-fit:fill">
+                    <hr>
+                    <a href="/post/{{ b.id }}/" style="text-decoration-line: none; color:goldenrod;">
+                        <p class="mycomment">{{ b.title }}</p>
+                    </a>
+                    <hr>
+                    <p>댓글 좋아요 수</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<hr>
+<h2>{{ tem_page_user.nickname }} 집사님의 좋아요 게시물</h2>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for l in tem_my_like_posts %}
+    <div class="col">
+        <div class="mycards">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ l.post.username.nickname }}</h5>
+                    <hr>
+                    <img src="/media/{{ l.post.image }}" onerror="this.src='/media/default_image.jpg'" width="180px"
+                        height="100px" style="object-fit:fill">
+                    <hr>
+                    <a href="/post/{{ l.post.id }}/" style="text-decoration-line: none; color:goldenrod;">
+                        <p class="mycomment">{{ l.post.title }}</p>
+                    </a>
+                    <hr>
+                    <p>댓글 좋아요 수</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

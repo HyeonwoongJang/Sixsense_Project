@@ -26,10 +26,18 @@ def read(request, post_id):
         post_detail = Post.objects.get(id=post_id)  # 특정 포스트 들어갈 때
         comments = Comment.objects.filter(post_id=post_id).order_by(
             '-created_at')  # 특정 포스트의 해당 코멘트들 (Comment 테이블의 post_id 필드에 받아온 인자  )
+        # 좋아요 조건문
         like_user = Like.objects.filter(post=post_id, user=request.user.id)
-        
-        
-        return render(request, 'post/detail.html', {'tem_post_detail': post_detail, 'tem_comments': comments, 'tem_likes' : like_user})
+        # 북마크 조건문
+        me = request.user
+        click_user = Post.objects.get(id=post_id)
+        if me in click_user.book_mark.all():
+            bookmark_user = True
+        else:
+            bookmark_user = False
+        return render(request, 'post/detail.html', {'tem_post_detail': post_detail, 'tem_comments': comments, 'tem_likes': like_user, 'tem_bookmark_user': bookmark_user})
+    else:
+        return HttpResponse("Invalid request method", status=405)
 
 
 def delete(request, post_id):
@@ -74,7 +82,7 @@ def comment(request, post_id):
             post=pp,
             user=request.user
         )
-            
+
         return redirect(f"/post/{post_id}/")
     else:
         return HttpResponse("invalid request method", status=405)
@@ -131,12 +139,12 @@ def bookmark(request, post_id):
         # # 특정 User가 북마크한 모든 포스트
         # user2 = User.objects.get(id=request.user.id)
         # posts_that_user2_bookmarked = user2.rn_book_mark.all()
-        # 
+        #
 
         # # 특정 Post를 북마크한 모든 사용자
         # post2 = Post.objects.get(id=2)
         # users_who_bookmarked_post2 = post2.rn_book_mark.all()
-        # 
+        #
 
         # Post 모델의 book_mark 필드는 User 모델을 참조, 조건식에서 book_mark는 User 인스턴스의 id를 역으로 참조
         if book_post.book_mark.filter(id=request.user.id):
@@ -148,5 +156,3 @@ def bookmark(request, post_id):
 # post1 = Post.objects.get(id=1)
 # post1_likes = post1.rn_like_user.all()
 # post1_user1_like = post1.rn_like_user.get(id=request.user.id)
-
-
