@@ -1,40 +1,43 @@
 {% extends 'user/base.html' %}
 {% block content %}
 
-    {% if request.user.is_authenticated %}
+{% if request.user.is_authenticated %}
 
-    {% endif %}
-    <h1>메인 페이지</h1>
-    <a href="/post/create/" style="margin-left: 85%;">
-        <button type="button" class="btn btn-dark btn-sm">작성하기</button>
-    </a>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for p in tem_all_post %}
-            <div class="col">
-                <div class="mycards">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <a href="/myhome/{{ p.username.id }}" style="text-decoration-line: none; color:black;"><h5 class="card-title">{{ p.username.nickname }}🏠</h5></a>
-                                <hr>
-                                <img src="/media/{{ p.image }}" onerror="this.src='/media/default_image.jpg'" width="180px" height="100px" style="object-fit:fill">
-                                <hr>
-                                <a href="/post/{{ p.id }}/" style="text-decoration-line: none; color:goldenrod;">
-                                <p class="mycomment">{{ p.title }}</p>
-                                </a>
-                                <hr>
-                                <p>댓글 수 : {{ p.post }}개</p>
-                            </div>
-                        </div>
+{% endif %}
+<h1>메인 페이지</h1>
+<a href="/post/create/" style="margin-left: 85%;">
+    <button type="button" class="btn btn-dark btn-sm">작성하기</button>
+</a>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for p in tem_all_post %}
+    <div class="col">
+        <div class="mycards">
+            <div class="card h-100">
+                <div class="card-body">
+                    <a href="/myhome/{{ p.username.id }}" style="text-decoration-line: none; color:black;">
+                        <h5 class="card-title">{{ p.username.nickname }}🏠</h5>
                     </a>
+                    <hr>
+                    <img src="/media/{{ p.image }}" onerror="this.src='/media/default_image.jpg'" width="180px"
+                        height="100px" style="object-fit:fill">
+                    <hr>
+                    <a href="/post/{{ p.id }}/" style="text-decoration-line: none; color:goldenrod;">
+                        <p class="mycomment">{{ p.title }}</p>
+                    </a>
+                    <hr>
+                    <p>댓글 수 : 개</p>
                 </div>
             </div>
-        {% endfor %}
+            </a>
+        </div>
     </div>
-    
-    
-    
-    
-    
-    
+    {% endfor %}
+</div>
+
+
+
+
+
+
 
 {% endblock %}

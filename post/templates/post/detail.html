@@ -15,7 +15,7 @@
                         {% if request.user.is_authenticated %}
                         <form action="/post/bookmark/{{tem_post_detail.id}}/" method="post">
                             {% csrf_token %}
-                            {% if tem_bookmark %}
+                            {% if tem_bookmark_user %}
                             <button class="btn btn-link text-danger">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" version="1.0"
                                     viewBox="0 0 512 512">
