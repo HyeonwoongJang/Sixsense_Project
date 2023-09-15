@@ -33,11 +33,24 @@
     </div>
     {% endfor %}
 </div>
+<div class="pagination">
+{% if tem_page_obj.has_previous %}
+<a href="?page=1">맨 앞으로</a>
+<a href="?page={{tem_post_obj.previous_page_number}}">이전 페이지로</a>
+{% endif %}
 
+<span class="current-page"> 
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+</span>
+<br>
+{% for p in tem_page_obj.paginator.page_range %}
+<a href="?page={{p}}" class="mx-1">{{p}}</a>
+{% endfor %} 
 
-
-
-
-
-
+{% if tem_page_obj.has_next %}
+<a href="?page={{tem_post_obj.next_page_number}}">다음 페이지로</a>
+<a href="?page={{tem_post_obj.paginator.num_pages}}">맨 뒤로</a>
+{% endif %}
+</div>
 {% endblock %}
+

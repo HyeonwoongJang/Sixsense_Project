@@ -4,12 +4,16 @@ from post.models import Post, Comment, Like
 from django.http import HttpResponse
 from user.models import User
 from django.contrib.auth import login
+from django.core.paginator import Paginator
 
 
 def main(request):
     if request.method == 'GET':
         all_post = Post.objects.all().order_by('-created_at')
-        context = {"tem_all_post": all_post}
+        paginator = Paginator(all_post, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {"tem_all_post": all_post, 'tem_page_obj': page_obj}
         return render(request, 'main.html', context)
     else:
         return HttpResponse("invalid request method", status=405)

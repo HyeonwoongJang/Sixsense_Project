@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from .models import Post, Comment, Like
 from user.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 @login_required(login_url='/user/signin/')
