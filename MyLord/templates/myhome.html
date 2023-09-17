@@ -17,10 +17,8 @@
                         <img src="/media/{{ tem_page_user.image }}" onerror="this.src='/media/default_image.jpg'"
                             width="250px" height="170px" style="object-fit:fill">
                         <hr>
-
-
                         {% if request.user.id != tem_page_user.id %}{% if request.user.is_authenticated %}
-                        {% if tem_follow %}
+                        {% if request.user in tem_page_user.follower.all %}
                         <form action="/user/follow/{{tem_page_user.id}}/" method="POST">
                             {% csrf_token %}
                             <button class="btn btn-link text-danger">
@@ -38,7 +36,7 @@
                         </form>
                         {% endif %}
                         {% endif %}{% endif %}
-                        <p>팔로워 수 : {{ tem_followers }}</p>
+                        <p>팔로워 수 : {{ tem_page_user.follower.all.count }}</p>
                     </div>
                 </div>
             </div>
@@ -76,7 +74,7 @@
     {% endfor %}
 </div>
 <hr>
-{% if request.user.is_authenticated %}{% if request.user.id != p.user.id %} 
+{% if request.user.is_authenticated %}{% if request.user.id == tem_page_user.id %} 
 <h2>{{ tem_page_user.nickname }} 집사님의 북마크 게시물</h2>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for b in tem_my_bookmarks %}
