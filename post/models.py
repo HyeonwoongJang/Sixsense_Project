@@ -7,7 +7,7 @@ class Post(models.Model):
     image = models.ImageField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    username = models.ForeignKey('user.User', on_delete=models.CASCADE)
+    username = models.ForeignKey('user.User', related_name='rn_post', on_delete=models.CASCADE)
     book_mark = models.ManyToManyField(
         'user.User', related_name="rn_book_mark", blank=True)
 
@@ -20,9 +20,10 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey('user.User', on_delete=models.CASCADE)
-    post = models.ForeignKey('post.Post', on_delete=models.CASCADE)
+    post = models.ForeignKey('post.Post', related_name='rn_comment', on_delete=models.CASCADE)
 
 
 class Like(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE)
-    post = models.ForeignKey('post.Post', on_delete=models.CASCADE)
+    post = models.ForeignKey('post.Post', related_name='rn_like', on_delete=models.CASCADE)
+

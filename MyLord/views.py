@@ -21,10 +21,11 @@ def myhome(request, user_id):
         my_posts = Post.objects.filter(
             username_id=user_id).order_by('-created_at')
         follow = request.user in page_user.follower.all()
-        me = request.user
+        me = page_user
         my_book_marks = me.rn_book_mark.all()
-        my_like_posts = Like.objects.filter(user=request.user)
-        return render(request, 'myhome.html', {'tem_my_posts': my_posts, 'tem_page_user': page_user, 'tem_follow': follow, 'tem_my_bookmarks': my_book_marks, 'tem_my_like_posts': my_like_posts})
+        my_like_posts = Like.objects.filter(user=user_id)
+        followers = page_user.follower.all().count()
+        return render(request, 'myhome.html', {'tem_my_posts': my_posts, 'tem_page_user': page_user, 'tem_follow': follow, 'tem_followers':followers, 'tem_my_bookmarks': my_book_marks, 'tem_my_like_posts': my_like_posts})
     else:
         return HttpResponse("invalid request method", status=405)
 

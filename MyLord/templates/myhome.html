@@ -19,7 +19,7 @@
                         <hr>
 
 
-                        {% if request.user.id != tem_page_user.id %}
+                        {% if request.user.id != tem_page_user.id %}{% if request.user.is_authenticated %}
                         {% if tem_follow %}
                         <form action="/user/follow/{{tem_page_user.id}}/" method="POST">
                             {% csrf_token %}
@@ -37,7 +37,8 @@
                             </button>
                         </form>
                         {% endif %}
-                        {% endif %}
+                        {% endif %}{% endif %}
+                        <p>팔로워 수 : {{ tem_followers }}</p>
                     </div>
                 </div>
             </div>
@@ -67,7 +68,7 @@
                         <p class="mycomment">{{ p.title }}</p>
                     </a>
                     <hr>
-                    <p>댓글 좋아요 수</p>
+                    <p>댓글 수 : {{p.rn_comment.count}} 좋아요 수 : {{ p.rn_like.count }}</p>
                 </div>
             </div>
         </div>
@@ -75,6 +76,7 @@
     {% endfor %}
 </div>
 <hr>
+{% if request.user.is_authenticated %}{% if request.user.id != p.user.id %} 
 <h2>{{ tem_page_user.nickname }} 집사님의 북마크 게시물</h2>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
     {% for b in tem_my_bookmarks %}
@@ -91,7 +93,7 @@
                         <p class="mycomment">{{ b.title }}</p>
                     </a>
                     <hr>
-                    <p>댓글 좋아요 수</p>
+                    <p>댓글 수 : {{b.rn_comment.count}} 좋아요 수 : {{ b.rn_like.count }}</p>
                 </div>
             </div>
         </div>
@@ -115,11 +117,12 @@
                         <p class="mycomment">{{ l.post.title }}</p>
                     </a>
                     <hr>
-                    <p>댓글 좋아요 수</p>
+                    <p>댓글 수 : {{l.rn_comment.count}} 좋아요 수 : {{ l.rn_like.count }}</p>
                 </div>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
+{% endif %} {% endif %}
 {% endblock %}
